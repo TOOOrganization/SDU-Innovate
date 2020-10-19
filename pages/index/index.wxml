@@ -1,0 +1,34 @@
+<push wx:if="{{PageCur=='push'}}"></push>
+<component wx:if="{{PageCur=='storage'}}"></component>
+<plugin wx:if="{{PageCur=='hardware'}}"></plugin>
+<about wx:if="{{PageCur=='about'}}"></about>
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="NavChange" data-cur="push">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/push{{PageCur=='push'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='push'?'text-blue':'text-gray'}}">功能列表</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="storage">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/storage{{PageCur=='storage'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='storage'?'text-blue':'text-gray'}}">图片管理</view>
+  </view>
+  <view class="action text-gray add-action">
+    <button bindtap="Scan" class="cu-btn cuIcon-scan bg-blue shadow"></button>
+    <view class="text-gray">扫一扫</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="hardware">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/hardware{{PageCur=='hardware'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='hardware'?'text-blue':'text-gray'}}">签名管理</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="about">
+    <view class='cuIcon-cu-image'>
+      <image src="/images/tabbar/about{{PageCur=='about'?'_cur':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='about'?'text-blue':'text-gray'}}">个人中心</view>
+  </view>
+</view>

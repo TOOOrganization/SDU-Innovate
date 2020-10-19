@@ -1,0 +1,10 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-gradual-blue">
+	<view slot="content">功能列表</view>
+</cu-custom>
+<view class="cu-list grid col-{{gridCol}} {{gridBorder?'':'no-border'}}">
+  <view bindtap="Navigate" data-url="{{item.url}}" class="cu-item" wx:for="{{iconList}}" wx:key="index" wx:if="{{index < gridCol*2}}">
+    <view class="cuIcon-{{item.icon}} text-{{item.color}}"></view>
+    <text>{{item.name}}</text>
+  </view>
+</view>

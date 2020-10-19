@@ -1,0 +1,125 @@
+<!--pages/0_function/upload_signature/upload_signature.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">上传签名</view>
+</cu-custom>
+<view class="bg-white padding">
+  <view class="cu-steps">
+    <view class="cu-item {{index > TabCur?'':'text-blue'}}" bindtap="Navigate" data-index="{{index}}" wx:for="{{TabList}}" wx:key="index">
+      <text class="cuIcon-{{index > TabCur ? 'title' : 'roundcheckfill'}}" data-index="{{index + 1}}"></text> {{item.name}}
+    </view>
+  </view>
+</view>
+
+<block wx:if="{{TabCur==0}}">
+  <view class="bg-white margin-top padding">
+    <view class="margin-bottom">
+      <text>Step 1. 用正楷字在白纸上清晰书写签名，</text>
+      <text class="text-green">正确示例如下：</text>
+    </view>
+    <view class="image flex justify-center">
+      <image src="/images/upload_signature/lead1-1.png" mode="widthFix" style="width:70%"></image>
+    </view>
+    <view class="margin-top">
+      <text class="text-red">为保证识别效果，请避免以下错误示例:</text>
+    </view>
+    <view class="margin-top flex justify-center" style="align-items:center">
+      <image src="/images/upload_signature/lead1-2.png" mode="widthFix" style="width:40%"></image>
+      <text class="text-red margin-left">字迹潦草 难以辨认</text>
+    </view>
+    <view class="margin-top flex justify-center" style="align-items:center">
+      <image src="/images/upload_signature/lead1-3.png" mode="widthFix" style="width:40%"></image>
+      <text class="text-red margin-left">字迹过浅 难以识别</text>
+    </view>
+    <view class="margin-top flex justify-center" style="align-items:center">
+      <image src="/images/upload_signature/lead1-4.png" mode="widthFix" style="width:40%"></image>
+      <text class="text-red margin-left">纸面不净 含有图案</text>
+    </view>
+  </view>
+  <view class="padding flex flex-direction">
+    <button bindtap="NumSteps" class="cu-btn bg-green lg" style="width:100%">我已写好，下一步</button>
+  </view>
+</block>
+
+<block wx:if="{{TabCur==1}}">
+  <block wx:if="{{!Snap}}">
+    <view class="bg-white margin-top padding">
+      <view class="margin-bottom">
+        <text>Step 2. 拍照</text>
+      </view>
+      <view class="image flex justify-center">
+        <image src="/images/upload_signature/lead2-1.png" mode="widthFix" style="width:70%"></image>
+      </view>
+      <view class="margin-top">
+        <text>将签名居中置于上半绿色方框中，文字底线需要和红色基准线对齐；</text>
+      </view>
+      <view class="margin-top">
+        <text>为保证最佳的识别效果，</text>
+        <text style="font-weight: bold">绿色方框内不能含有阴影；下半绿色方框是对照区，光线需和上半保持一致。</text>
+      </view>
+    </view>
+    <view class="padding flex flex-direction">
+      <button bindtap="OpenCamera" class="cu-btn bg-green lg" style="width:100%">开始拍照</button>
+    </view>
+  </block>
+  <block wx:if="{{Snap}}">
+    <view class="camera_box">
+      <camera class="camera" wx:if="{{!Preview}}" device-position="back" flash="off" binderror="error">
+        <cover-view>
+          <cover-image src="/images/upload_signature/cover.png"></cover-image>
+        </cover-view>
+      </camera>
+      <image class="camera_preview" src="/images/upload_signature/cover.png" wx:if="{{Preview}}" mode="widthFix"></image>
+      <image class="camera_img" src="{{img}}" wx:if="{{Preview}}" mode="widthFix"></image>
+      <view class="action">
+        <view class="photo_btn" bindtap="TakePhoto" wx:if="{{!Preview}}">
+          <image src="/images/camera/snap.png" class="photo_btn"></image>
+        </view>
+        <view class="photo_btn" bindtap="Cancel" wx:if="{{Preview}}">
+          <image src="/images/camera/cancel.png" class="photo_btn"></image>
+        </view>
+        <view class="photo_btn" bindtap="SaveImg" wx:if="{{Preview}}">
+          <image src="/images/camera/confirm.png" class="photo_btn"></image>
+        </view>
+      </view>
+    </view>
+  </block>
+</block>
+
+<block wx:if="{{TabCur==2}}">
+  <form>
+    <view class="bg-white margin-top padding">
+      <text>Step 3. 预览上传</text>
+    </view>
+	  <view class="cu-form-group">
+		  <view class="title">验证码</view>
+		  <input value="{{sourceKey}}" bind:input="TextChange" placeholder="输入或扫描二维码"></input>
+      <button class="basis-xs cu-btn cuIcon-scan bg-green shadow" bindtap="Scan"></button>
+	  </view>
+    <view class="bg-white padding">
+      <view class="flex justify-center">
+        <text>拖动滑条，直到清晰为止</text>
+      </view>
+      <view class="flex justify-center">
+        <slider style="width:100%" value="{{weight}}" bindchange="WeightChange" bindchanging="WeightChanging" min="0" max="100" activeColor='#0081FF' backgroundColor='#CCCCCC' block-size='12' block-color='#EEEEEE' step="1"/>
+      </view>
+      <view class="image flex margin-bottom justify-center">
+        <image src="{{calImg}}" mode="widthFix" wx:if="{{calImg}}" style="width:70%; max-height: 300px"></image>
+        <view class="padding margin" wx:if="{{!calImg}}">
+          <text>正在生成签名，请稍等...</text>
+        </view>
+      </view>
+      <view class="flex justify-center">
+        <text>您拍摄的签名</text>
+      </view>
+    </view>
+    <view class="padding flex flex-direction">
+      <button class="cu-btn bg-green lg" style="width:100%">提交</button>
+    </view>
+  </form>
+</block>
+
+<view style='width:0px; height:0px; overflow:hidden; transform:scale(0,0)'>
+  <canvas class="canvas" canvas-id="myCanvas"></canvas>
+  <canvas class="canvas2" canvas-id="myCanvas2"></canvas>
+</view>

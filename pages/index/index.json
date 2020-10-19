@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "push": "/pages/1_home/home",
+    "component": "/pages/2_picture/picture",
+    "plugin": "/pages/3_signature/signature",
+    "about": "/pages/4_user/user"
+  }
+}

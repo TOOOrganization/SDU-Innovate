@@ -1,0 +1,43 @@
+<!--pages/0_function/upload_pic/upload_pic.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">上传图片</view>
+</cu-custom>
+<form>
+	<view class="cu-form-group margin-top">
+		<view class="title">验证码</view>
+		<input value="{{sourceKey}}" bind:input="TextChange" placeholder="输入或扫描二维码"></input>
+    <button class="basis-xs cu-btn cuIcon-scan bg-green shadow" bindtap="Scan"></button>
+	</view>
+	<view class="cu-bar bg-white margin-top">
+		<view class="action">
+			选择图片
+		</view>
+		<view class="action">
+			{{imgList.length}}/1
+		</view>
+	</view>
+  <view class="cu-form-group">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
+				<image src='{{imgList[index]}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length < 1}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+
+  <view class="padding flex flex-direction">
+    <button class="cu-btn bg-green lg" bindtap="Submit" style="width:100%">提交</button>
+  </view>
+
+</form>
+
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <view class='cuIcon-pic text-blue'></view>
+  <view class='gray-text'>上传中...</view>
+</view>

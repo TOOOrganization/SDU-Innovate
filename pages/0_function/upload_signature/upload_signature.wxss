@@ -1,0 +1,58 @@
+/* pages/0_function/upload_signature/upload_signature.wxss */
+
+.camera_box {
+  height: 70vh; width: 100vw;
+  position: relative;
+  background-color: black;
+}
+.camera {
+  height: 55vh;
+  width: 100vw;
+  z-index: 1;
+}
+
+.camera_box .action {
+  height: 15vh;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+} 
+.camera_box .photo_btn {
+  font-size: 24rpx;
+  height: 120rpx;
+  width: 120rpx;
+  border-radius: 50%;
+  background-size: contain;
+  border: none;
+}
+.camera_box .photo_btn:hover {
+  background-color: gainsboro
+}
+
+.camera_img {
+  height: 55vh;
+  width: 100%;
+  margin: 0px;
+}
+.camera_preview {
+  width: 100%;
+  position: absolute;
+  z-index: 100;
+  top: 0px;
+}
+
+.canvas {
+  width: 1080px;
+  height: 960px;
+  background-color: antiquewhite;
+  visibility: hidden;
+}
+
+.canvas2 {
+  width: 600px;
+  height: 300px;
+  background-color: antiquewhite;
+  visibility: hidden;
+}
